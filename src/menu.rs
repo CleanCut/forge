@@ -1,6 +1,7 @@
-use crate::loading::FontAssets;
+use crate::loading::{FontAssets, TextureAssets};
 use crate::GameState;
 use bevy::prelude::*;
+use bevy::render::camera::ScalingMode;
 use bevy::window::WindowMode;
 
 pub struct MenuPlugin;
@@ -49,8 +50,11 @@ fn setup_menu(
     mut commands: Commands,
     font_assets: Res<FontAssets>,
     button_colors: Res<ButtonColors>,
+    textures: Res<TextureAssets>,
 ) {
-    commands.spawn_bundle(Camera2dBundle::default());
+    let mut camera_bundle = Camera2dBundle::default();
+    camera_bundle.projection.scaling_mode = ScalingMode::FixedVertical(720.0);
+    commands.spawn_bundle(camera_bundle);
 
     // Play button
     commands
@@ -116,20 +120,12 @@ fn setup_menu(
         .insert(ButtonName { name: "fullscreen" })
         .insert(PartOfMenu);
 
-    // Title
+    // Title Screen Image
     commands
-        .spawn_bundle(Text2dBundle {
-            text: Text::from_section(
-                "Forge",
-                TextStyle {
-                    font: font_assets.fira_sans.clone(),
-                    font_size: 140.0,
-                    color: Color::ORANGE,
-                },
-            )
-            .with_alignment(TextAlignment::CENTER),
-            transform: Transform::from_translation(Vec3::new(0.0, 150.0, 0.0)),
-            ..default()
+        .spawn_bundle(SpriteBundle {
+            texture: textures.title_screen.clone(),
+            transform: Transform::from_scale(Vec3::splat(0.5)),
+            ..Default::default()
         })
         .insert(PartOfMenu);
 }
