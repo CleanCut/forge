@@ -17,10 +17,3 @@ See [license/APACHE](license/APACHE) and [license/MIT](license/MIT).
 Other licenses and credits can be viewed in the [credits](./credits) directory.
 
 [bevy]: https://bevyengine.org/
-[bevy-learn]: https://bevyengine.org/learn/
-[bevy-discord]: https://discord.gg/bevy
-[nikl-twitter]: https://twitter.com/nikl_me
-[firefox-sound-issue]: https://github.com/NiklasEi/bevy_kira_audio/issues/9
-[Bevy Cheat Book]: https://bevy-cheatbook.github.io/introduction.html
-[`wasm-server-runner`]: https://github.com/jakobhellermann/wasm-server-runner
-[trunk]: https://trunkrs.dev/
