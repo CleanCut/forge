@@ -1,6 +1,7 @@
 use crate::loading::FontAssets;
 use crate::GameState;
 use bevy::prelude::*;
+use bevy::window::WindowMode;
 
 pub struct MenuPlugin;
 
@@ -32,6 +33,17 @@ impl Default for ButtonColors {
 // Mark things to clean up when we leave the menu
 #[derive(Component)]
 struct PartOfMenu;
+
+#[derive(Component)]
+struct ButtonName {
+    name: &'static str,
+}
+
+impl PartialEq<str> for ButtonName {
+    fn eq(&self, other: &str) -> bool {
+        self.name == other
+    }
+}
 
 fn setup_menu(
     mut commands: Commands,
@@ -69,6 +81,39 @@ fn setup_menu(
                 ..Default::default()
             });
         })
+        .insert(ButtonName { name: "play" })
+        .insert(PartOfMenu);
+
+    // Fullscreen button
+    commands
+        .spawn_bundle(ButtonBundle {
+            style: Style {
+                size: Size::new(Val::Px(350.0), Val::Px(50.0)),
+                margin: UiRect::all(Val::Auto),
+                justify_content: JustifyContent::Center,
+                align_items: AlignItems::Center,
+                ..Default::default()
+            },
+            color: button_colors.normal,
+            ..Default::default()
+        })
+        .with_children(|parent| {
+            parent.spawn_bundle(TextBundle {
+                text: Text {
+                    sections: vec![TextSection {
+                        value: "Toggle Fullscreen".to_string(),
+                        style: TextStyle {
+                            font: font_assets.fira_sans.clone(),
+                            font_size: 40.0,
+                            color: Color::rgb(0.9, 0.9, 0.9),
+                        },
+                    }],
+                    alignment: Default::default(),
+                },
+                ..Default::default()
+            });
+        })
+        .insert(ButtonName { name: "fullscreen" })
         .insert(PartOfMenu);
 
     // Title
@@ -92,21 +137,42 @@ fn setup_menu(
 fn click_play_button(
     button_colors: Res<ButtonColors>,
     mut state: ResMut<State<GameState>>,
-    mut interaction_query: Query<
-        (&Interaction, &mut UiColor),
-        (Changed<Interaction>, With<Button>),
-    >,
+    mut interaction_query: Query<(&Interaction, &mut UiColor, &ButtonName), Changed<Interaction>>,
+    mut windows: ResMut<Windows>,
 ) {
-    for (interaction, mut color) in &mut interaction_query {
-        match *interaction {
-            Interaction::Clicked => {
-                state.set(GameState::Playing).unwrap();
+    for (interaction, mut color, button_name) in &mut interaction_query {
+        if button_name == "play" {
+            match *interaction {
+                Interaction::Clicked => {
+                    state.set(GameState::Playing).unwrap();
+                }
+                Interaction::Hovered => {
+                    *color = button_colors.hovered;
+                }
+                Interaction::None => {
+                    *color = button_colors.normal;
+                }
             }
-            Interaction::Hovered => {
-                *color = button_colors.hovered;
-            }
-            Interaction::None => {
-                *color = button_colors.normal;
+        } else if button_name == "fullscreen" {
+            match *interaction {
+                Interaction::Clicked => {
+                    use WindowMode::*;
+                    let window = windows
+                        .get_primary_mut()
+                        .expect("couldn't find window to make fullscreen");
+                    let new_mode = if window.mode() == BorderlessFullscreen {
+                        Windowed
+                    } else {
+                        BorderlessFullscreen
+                    };
+                    window.set_mode(new_mode);
+                }
+                Interaction::Hovered => {
+                    *color = button_colors.hovered;
+                }
+                Interaction::None => {
+                    *color = button_colors.normal;
+                }
             }
         }
     }

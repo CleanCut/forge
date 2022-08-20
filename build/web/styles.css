@@ -1,17 +1,16 @@
-body, html {
+body,
+html {
     height: 100%;
 }
 
 body {
-    background: linear-gradient(
-            135deg,
+    background: linear-gradient(135deg,
             white 0%,
             white 49%,
             black 49%,
             black 51%,
             white 51%,
-            white 100%
-    ) repeat;
+            white 100%) repeat;
     background-size: 20px 20px;
     margin: 0;
 }
@@ -26,6 +25,6 @@ body {
 
 #bevy {
     background-color: white;
-    width: 800px;
-    height: 600px;
+    width: 1280px;
+    height: 720px;
 }
