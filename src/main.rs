@@ -22,12 +22,12 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
-        .add_startup_system(set_window_icon)
+        //.add_startup_system(set_window_icon)
         .run();
 }
 
 // Sets the icon on windows and X11
-fn set_window_icon(windows: NonSend<WinitWindows>) {
+/* fn set_window_icon(windows: NonSend<WinitWindows>) {
     let primary = windows.get_window(WindowId::primary()).unwrap();
     let icon_buf = Cursor::new(include_bytes!("../assets/textures/bevy.png"));
     if let Ok(image) = image::load(icon_buf, image::ImageFormat::Png) {
@@ -38,3 +38,4 @@ fn set_window_icon(windows: NonSend<WinitWindows>) {
         primary.set_window_icon(Some(icon));
     };
 }
+ */
