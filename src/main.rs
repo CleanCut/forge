@@ -27,9 +27,9 @@ fn main() {
 }
 
 // Sets the icon on windows and X11
-/* fn set_window_icon(windows: NonSend<WinitWindows>) {
+fn set_window_icon(windows: NonSend<WinitWindows>) {
     let primary = windows.get_window(WindowId::primary()).unwrap();
-    let icon_buf = Cursor::new(include_bytes!("../assets/textures/bevy.png"));
+    let icon_buf = Cursor::new(include_bytes!("../assets/textures/app_icon.png"));
     if let Ok(image) = image::load(icon_buf, image::ImageFormat::Png) {
         let image = image.into_rgba8();
         let (width, height) = image.dimensions();
@@ -38,4 +38,3 @@ fn main() {
         primary.set_window_icon(Some(icon));
     };
 }
- */
