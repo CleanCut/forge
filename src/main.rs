@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use bevy::prelude::{App, ClearColor, Color, Msaa, NonSend, WindowDescriptor};
+use bevy::render::texture::ImageSettings;
 use bevy::window::WindowId;
 use bevy::winit::WinitWindows;
 use bevy::DefaultPlugins;
@@ -13,6 +14,7 @@ fn main() {
     App::new()
         .insert_resource(Msaa { samples: 1 })
         .insert_resource(ClearColor(Color::rgb(0.4, 0.4, 0.4)))
+        .insert_resource(ImageSettings::default_nearest())
         .insert_resource(WindowDescriptor {
             width: 1280.,
             height: 720.,
@@ -22,12 +24,12 @@ fn main() {
         })
         .add_plugins(DefaultPlugins)
         .add_plugin(GamePlugin)
-        //.add_startup_system(set_window_icon)
+        .add_startup_system(set_window_icon)
         .run();
 }
 
 // Sets the icon on windows and X11
-/* fn set_window_icon(windows: NonSend<WinitWindows>) {
+fn set_window_icon(windows: NonSend<WinitWindows>) {
     let primary = windows.get_window(WindowId::primary()).unwrap();
     let icon_buf = Cursor::new(include_bytes!("../assets/textures/bevy.png"));
     if let Ok(image) = image::load(icon_buf, image::ImageFormat::Png) {
@@ -38,4 +40,3 @@ fn main() {
         primary.set_window_icon(Some(icon));
     };
 }
- */
