@@ -25,6 +25,7 @@ fn spawn_player(
     textures: Res<TextureAssets>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
+    // Player???
     let texture_atlas =
         TextureAtlas::from_grid(textures.materials_sheet.clone(), Vec2::splat(16.0), 10, 25);
     let texture_atlas_handle = texture_atlases.add(texture_atlas);
@@ -39,6 +40,17 @@ fn spawn_player(
             ..Default::default()
         })
         .insert(Player);
+
+    // Stone bowl
+    commands.spawn_bundle(SpriteBundle {
+        texture: textures.bowl.clone(),
+        transform: Transform {
+            translation: Vec3::new(0., -200., 0.0),
+            scale: Vec3::splat(4.0),
+            ..Default::default()
+        },
+        ..Default::default()
+    });
 }
 
 fn move_player(

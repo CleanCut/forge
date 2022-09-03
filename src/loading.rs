@@ -41,6 +41,8 @@ pub struct TextureAssets {
     pub texture_bevy: Handle<Image>,
     #[asset(path = "title_screen.png")]
     pub title_screen: Handle<Image>,
+    #[asset(path = "textures/bowl-stone.png")]
+    pub bowl: Handle<Image>,
     #[asset(path = "textures/materials_sheet.png")]
     pub materials_sheet: Handle<Image>,
     #[asset(path = "textures/materials_selected_sheet.png")]
