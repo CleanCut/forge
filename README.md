@@ -1,10 +1,12 @@
 # Forge
 
+NOTE: NOT PLAYABLE - Life events intervened and I never reached a playable state with this project, so I never ended up submitting it to the game jam.
+
 [Play It In Your Browser](https://cleancut.github.io/forge)
 
 Forge items for those pesky adventurers always dropping by your shop.
 
-My game submission for [Bevy Jam #2](https://itch.io/jam/bevy-jam-2). Made with [bevy], obviously. 😄
+~My game submission for [Bevy Jam #2](https://itch.io/jam/bevy-jam-2).~ Made with [bevy], obviously. 😄
 
 ## Software License
 
